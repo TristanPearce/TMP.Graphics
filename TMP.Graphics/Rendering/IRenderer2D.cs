@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -10,10 +9,8 @@ namespace TMP.Graphics.Rendering
 {
     public interface IRenderer2D
     {
-        Color FillColor { get; set; }
-        Color OutlineColor { get; set; }
-
-        float OutlineThickness { get; set; }
+        Fill FillColor { get; set; }
+        Outline Outline { get; set; }
 
         void Draw(Line line);
         void Draw(Ellipse ellipse);
