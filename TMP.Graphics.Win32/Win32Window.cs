@@ -4,11 +4,10 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using PInvoke;
+using Vanara.PInvoke;
 using TMP.Graphics.Utils;
 using TMP.Graphics.Window;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using static PInvoke.User32;
+using static Vanara.PInvoke.User32;
 
 namespace TMP.Graphics.Win32;
 
@@ -18,7 +17,7 @@ public class Win32Window : IWindow
     string CLASS_NAME = "Sample Window Class";
     User32.WNDCLASS wc;
 
-    nint WindowPointer;
+    SafeHWND WindowPointer;
 
     public Vector2I Position { get; set; }
     public Vector2I Size { get; set; }
@@ -34,9 +33,9 @@ public class Win32Window : IWindow
             wc = new User32.WNDCLASS();
             wc.lpfnWndProc = WindowProc;
             wc.hInstance = Kernel32.GetModuleHandle(null);
-            wc.lpszClassName = (char*)Marshal.StringToHGlobalAuto(CLASS_NAME);
+            wc.lpszClassName = CLASS_NAME;
 
-            User32.RegisterClass(ref wc);
+            RegisterClass(in wc);
 
             WindowPointer = User32.CreateWindowEx(
                 User32.WindowStylesEx.WS_EX_ACCEPTFILES,                              // Optional window styles.
@@ -47,13 +46,13 @@ public class Win32Window : IWindow
                 // Size and position
                 100, 100, 400, 400,
 
-                0,       // Parent window    
-                0,       // Menu
+                HWND.NULL,       // Parent window    
+                HMENU.NULL,       // Menu
                 Kernel32.GetModuleHandle(null),  // Instance handle
-                null        // Additional application data
+                IntPtr.Zero        // Additional application data
                 );
 
-            if (WindowPointer == 0)
+            if (WindowPointer.IsInvalid)
             {
                 throw new Exception($"Window could not be created : {Kernel32.GetLastError()}");
             }
@@ -63,17 +62,14 @@ public class Win32Window : IWindow
     public void PumpEvents()
     {
         MSG msg = new MSG();
-        unsafe 
-        {
-            GetMessage(&msg, WindowPointer, 0, 0);
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
-        }
+        GetMessage(out msg, WindowPointer, 0, 0);
+        TranslateMessage(in msg);
+        DispatchMessage(in msg);
     }
 
-    unsafe nint WindowProc(nint hwnd, User32.WindowMessage message, void* wParam, void* lParam)
+    unsafe IntPtr WindowProc(HWND hwnd, uint message, IntPtr wParam, IntPtr lParam)
     {
-        switch (message)
+        switch ((WindowMessage)message)
         {
             case WindowMessage.WM_ACTIVATEAPP:
                 MessageHandler.WM_ACTIVATEAPP(hwnd, (nint)wParam, (nint)lParam);
@@ -180,12 +176,12 @@ public class Win32Window : IWindow
 
     public void Show()
     {
-        User32.ShowWindow(WindowPointer, User32.WindowShowStyle.SW_SHOW);
+        User32.ShowWindow(WindowPointer, ShowWindowCommand.SW_SHOW);
     }
 
     public void Hide()
     {
-        User32.ShowWindow(WindowPointer, User32.WindowShowStyle.SW_HIDE);
+        User32.ShowWindow(WindowPointer, ShowWindowCommand.SW_HIDE);
     }
 
     

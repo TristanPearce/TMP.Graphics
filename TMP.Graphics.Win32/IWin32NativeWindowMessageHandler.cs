@@ -4,18 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static PInvoke.Kernel32;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using Validation;
 using System.Reflection.Metadata;
 using System.Runtime.Intrinsics.X86;
 using System.Data.Common;
 using System.Reflection;
-using PInvoke;
 using System.ComponentModel;
 using System.Drawing;
 using System.Diagnostics.Contracts;
 
+using Vanara.PInvoke;
+using static Vanara.PInvoke.User32;
 namespace TMP.Graphics.Win32;
 
 public interface IWin32NativeWindowMessageHandler
@@ -36,7 +34,7 @@ public interface IWin32NativeWindowMessageHandler
     /// identifier of the thread that owns the window being deactivated. If wParam 
     /// is FALSE, lParam is the identifier of the thread that owns the window being activated.
     /// </param>
-    public void WM_ACTIVATEAPP(nint hWnd, nint wParam, nint lParam);
+    public void WM_ACTIVATEAPP(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent to cancel certain modes, such as mouse capture. For example, 
@@ -49,7 +47,7 @@ public interface IWin32NativeWindowMessageHandler
     /// <param name="hWnd"></param>
     /// <param name="wParam">This parameter is not used.</param>
     /// <param name="lParam">This parameter is not used.</param>
-    public void WM_CANCELMODE(nint hWnd, nint wParam, nint lParam);
+    public void WM_CANCELMODE(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent to a child window when the user clicks the window's title 
@@ -59,7 +57,7 @@ public interface IWin32NativeWindowMessageHandler
     /// <param name="hWnd"></param>
     /// <param name="wParam">This parameter is not used.</param>
     /// <param name="lParam">This parameter is not used.</param>
-    public void WM_CHILDACTIVATE(nint hWnd, nint wParam, nint lParam);
+    public void WM_CHILDACTIVATE(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent as a signal that a window or an application should terminate.
@@ -68,7 +66,7 @@ public interface IWin32NativeWindowMessageHandler
     /// <param name="hWnd"></param>
     /// <param name="wParam">This parameter is not used.</param>
     /// <param name="lParam">This parameter is not used.</param>
-    public void WM_CLOSE(nint hWnd, nint wParam, nint lParam);
+    public void WM_CLOSE(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent to all top-level windows when the system detects more than 12.5 percent 
@@ -83,7 +81,7 @@ public interface IWin32NativeWindowMessageHandler
     /// 0x8000 represents 50 percent of CPU time spent compacting memory.
     /// </param>
     /// <param name="lParam">This parameter is not used.</param>
-    public void WM_COMPACTING(nint hWnd, nint wParam, nint lParam);
+    public void WM_COMPACTING(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent when an application requests that a window be created by calling the CreateWindowEx
@@ -103,7 +101,7 @@ public interface IWin32NativeWindowMessageHandler
     /// creation of the window. If the application returns –1, the window is destroyed 
     /// and the CreateWindowEx or CreateWindow function returns a NULL handle.
     /// </returns>
-    public void WM_CREATE(nint hWnd, nint wParam, nint lParam);
+    public void WM_CREATE(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent when a window is being destroyed. It is sent to the window procedure 
@@ -116,7 +114,7 @@ public interface IWin32NativeWindowMessageHandler
     /// <param name="hWnd"></param>
     /// <param name="wParam">This parameter is not used.</param>
     /// <param name="lParam">This parameter is not used.</param>
-    public void WM_DESTROY(nint hWnd, nint wParam, nint lParam);
+    public void WM_DESTROY(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent when an application changes the enabled state of a window. It is sent 
@@ -131,7 +129,7 @@ public interface IWin32NativeWindowMessageHandler
     /// This parameter is TRUE if the window has been enabled or 
     /// FALSE if the window has been disabled.</param>
     /// <param name="lParam">This parameter is not used.</param>
-    public void WM_ENABLE(nint hWnd, nint wParam, nint lParam);
+    public void WM_ENABLE(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent one time to a window after it enters the moving or sizing modal loop. 
@@ -146,7 +144,7 @@ public interface IWin32NativeWindowMessageHandler
     /// <param name="hWnd"></param>
     /// <param name="wParam">This parameter is not used.</param>
     /// <param name="lParam">This parameter is not used.</param>
-    public void WM_ENTERSIZEMOVE(nint hWnd, nint wParam, nint lParam);
+    public void WM_ENTERSIZEMOVE(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent one time to a window, after it has exited the moving or sizing modal loop. 
@@ -159,7 +157,7 @@ public interface IWin32NativeWindowMessageHandler
     /// <param name="hWnd"></param>
     /// <param name="wParam">This parameter is not used.</param>
     /// <param name="lParam">This parameter is not used.</param>
-    public void WM_EXITSIZEMOVE(nint hWnd, nint wParam, nint lParam);
+    public void WM_EXITSIZEMOVE(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent to a window to retrieve a handle to the large or small icon associated with 
@@ -176,7 +174,7 @@ public interface IWin32NativeWindowMessageHandler
     /// The DPI of the icon being retrieved. This can be used to
     /// provide different icons depending on the icon size.
     /// </param>
-    public void WM_GETICON(nint hWnd, nint wParam, nint lParam);
+    public void WM_GETICON(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent to a window when the size or position of the window is about to 
@@ -199,7 +197,7 @@ public interface IWin32NativeWindowMessageHandler
     /// maximum tracking sizes. An application can override the defaults 
     /// by setting the members of this structure.
     /// </param>
-    public void WM_GETMINMAXINFO(nint hWnd, nint wParam, nint lParam);
+    public void WM_GETMINMAXINFO(HWND hWnd, IntPtr wParam, IntPtr lParam);
     
     /// <summary>
     /// Sent to the topmost affected window after an application's input language has 
@@ -218,7 +216,7 @@ public interface IWin32NativeWindowMessageHandler
     /// The HKL input locale identifier.The low word contains a Language 
     /// Identifier for the input language.The high word contains a device handle.
     /// </param>
-    public void WM_INPUTLANGCHANGE(nint hWnd, nint wParam, nint lParam);
+    public void WM_INPUTLANGCHANGE(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Posted to the window with the focus when the user chooses a new input language, 
@@ -237,7 +235,7 @@ public interface IWin32NativeWindowMessageHandler
     /// The input locale identifier. For more information, 
     /// see Languages, Locales, and Keyboard Layouts.
     /// </param>
-    public void WM_INPUTLANGCHANGEREQUEST(nint hWnd, nint wParam, nint lParam);
+    public void WM_INPUTLANGCHANGEREQUEST(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent after a window has been moved.
@@ -250,7 +248,7 @@ public interface IWin32NativeWindowMessageHandler
     /// The low-order word contains the x-coordinate while the high-order word 
     /// contains the y coordinate.
     /// </param>
-    public void WM_MOVE(nint hWnd, nint wParam, nint lParam);    
+    public void WM_MOVE(HWND hWnd, IntPtr wParam, IntPtr lParam);    
 
     /// <summary>
     /// Sent to a window that the user is moving. By processing this message, 
@@ -265,7 +263,7 @@ public interface IWin32NativeWindowMessageHandler
     /// in screen coordinates. To change the position of the drag rectangle, 
     /// an application must change the members of this structure.
     /// </param>
-    public void WM_MOVING(nint hWnd, nint wParam, nint lParam);
+    public void WM_MOVING(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent to a window when its nonclient area needs to be changed to indicate an active or inactive state.
@@ -284,7 +282,7 @@ public interface IWin32NativeWindowMessageHandler
     /// this parameter is set to -1, DefWindowProc does not repaint the nonclient 
     /// area to reflect the state change.
     /// </param>
-    public void WM_NCACTIVATE(nint hWnd, nint wParam, nint lParam);
+    public void WM_NCACTIVATE(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent when the size and position of a window's client area must be calculated. 
@@ -305,7 +303,7 @@ public interface IWin32NativeWindowMessageHandler
     /// On entry, the structure contains the proposed window rectangle for the window. 
     /// On exit, the structure should contain the screen coordinates of the corresponding window client area.
     /// </param>
-    public void WM_NCCALCSIZE(nint hWnd, nint wParam, nint lParam);
+    public void WM_NCCALCSIZE(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent prior to the WM_CREATE message when a window is first created.
@@ -318,7 +316,7 @@ public interface IWin32NativeWindowMessageHandler
     /// the window being created. The members of CREATESTRUCT are identical to 
     /// the parameters of the CreateWindowEx function.
     /// </param>
-    public void WM_NCCREATE(nint hWnd, nint wParam, nint lParam);
+    public void WM_NCCREATE(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Notifies a window that its nonclient area is being destroyed. The DestroyWindow 
@@ -331,7 +329,7 @@ public interface IWin32NativeWindowMessageHandler
     /// <param name="hWnd"></param>
     /// <param name="wParam">This parameter is not used.</param>
     /// <param name="lParam">This parameter is not used.</param>
-    public void WM_NCDESTROY(nint hWnd, nint wParam, nint lParam);
+    public void WM_NCDESTROY(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
 
     /// <summary>
@@ -343,7 +341,7 @@ public interface IWin32NativeWindowMessageHandler
     /// <param name="wParam">This parameter is not used.</param>
     /// <param name="lParam">This parameter is not used.</param>
         /// <returns>An application returns zero if it processes this message.</returns>
-    public void WM_NULL(nint hWnd, nint wParam, nint lParam);
+    public void WM_NULL(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent to a minimized (iconic) window. The window is about to be dragged by 
@@ -355,7 +353,7 @@ public interface IWin32NativeWindowMessageHandler
     /// <param name="hWnd"></param>
     /// <param name="wParam">This parameter is not used.</param>
     /// <param name="lParam">This parameter is not used.</param>
-    public void WM_QUERYDRAGICON(nint hWnd, nint wParam, nint lParam);
+    public void WM_QUERYDRAGICON(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent to an icon when the user requests that the window be restored to its previous size and position.
@@ -364,7 +362,7 @@ public interface IWin32NativeWindowMessageHandler
     /// <param name="hWnd"></param>
     /// <param name="wParam">This parameter is not used.</param>
     /// <param name="lParam">This parameter is not used.</param>
-    public void WM_QUERYOPEN(nint hWnd, nint wParam, nint lParam);
+    public void WM_QUERYOPEN(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Indicates a request to terminate an application, and is generated when 
@@ -375,7 +373,7 @@ public interface IWin32NativeWindowMessageHandler
     /// <param name="hWnd"></param>
     /// <param name="wParam">The exit code given in the PostQuitMessage function.</param>
     /// <param name="lParam">This parameter is not used.</param>
-    public void WM_QUIT(nint hWnd, nint wParam, nint lParam);
+    public void WM_QUIT(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent to a window when the window is about to be hidden or shown.
@@ -391,7 +389,7 @@ public interface IWin32NativeWindowMessageHandler
     /// of a call to the ShowWindow function; otherwise, lParam is one of the following values.
     /// SW_OTHERUNZOOM : 4, SW_OTHERZOOM : 2, SW_PARENTCLOSING : 1, SW_PARENTOPENING : 3.
     /// </param>
-    public void WM_SHOWWINDOW(nint hWnd, nint wParam, nint lParam);
+    public void WM_SHOWWINDOW(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent to a window after its size has changed.
@@ -406,7 +404,7 @@ public interface IWin32NativeWindowMessageHandler
     /// The low-order word of lParam specifies the new width of the client area. 
     /// The high-order word of lParam specifies the new height of the client area.
     /// </param>
-    public void WM_SIZE(nint hWnd, nint wParam, nint lParam);
+    public void WM_SIZE(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent to a window that the user is resizing. By processing this message, an application 
@@ -423,7 +421,7 @@ public interface IWin32NativeWindowMessageHandler
     /// A pointer to a RECT structure with the screen coordinates of the drag rectangle. To change the 
     /// size or position of the drag rectangle, an application must change the members of this structure.
     /// </param>
-    public void WM_SIZING(nint hWnd, nint wParam, nint lParam);
+    public void WM_SIZING(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent to a window after the SetWindowLong function has changed one or more of the window's styles.
@@ -440,7 +438,7 @@ public interface IWin32NativeWindowMessageHandler
     /// An application can examine the styles, but cannot change them.
     /// </param>
     /// <returns>An application should return zero if it processes this message.</returns>
-    public void WM_STYLECHANGED(nint hWnd, nint wParam, nint lParam);
+    public void WM_STYLECHANGED(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent to a window when the SetWindowLong function is about to change one or more of the window's styles.
@@ -456,7 +454,7 @@ public interface IWin32NativeWindowMessageHandler
     /// A pointer to a STYLESTRUCT structure that contains the proposed new styles for the window. 
     /// An application can examine the styles and, if necessary, change them.
     /// </param>
-    public void WM_STYLECHANGING(nint hWnd, nint wParam, nint lParam);
+    public void WM_STYLECHANGING(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Broadcast to every window following a theme change event. Examples of theme change 
@@ -467,7 +465,7 @@ public interface IWin32NativeWindowMessageHandler
     /// <param name="hWnd"></param>
     /// <param name="wParam">This parameter is reserved.</param>
     /// <param name="lParam">This parameter is reserved.</param>
-    public void WM_THEMECHANGED(nint hWnd, nint wParam, nint lParam);
+    public void WM_THEMECHANGED(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent to all windows after the user has logged on or off. When the user logs on or off, 
@@ -478,7 +476,7 @@ public interface IWin32NativeWindowMessageHandler
     /// <param name="hWnd"></param>
     /// <param name="wParam">This parameter is not used.</param>
     /// <param name="lParam">This parameter is not used.</param>
-    public void WM_USERCHANGED(nint hWnd, nint wParam, nint lParam);
+    public void WM_USERCHANGED(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent to a window whose size, position, or place in the Z order has changed as 
@@ -490,7 +488,7 @@ public interface IWin32NativeWindowMessageHandler
     /// <param name="lParam">
     /// A pointer to a WINDOWPOS structure that contains information about the window's new size and position.
     /// </param>
-    public void WM_WINDOWPOSCHANGED(nint hWnd, nint wParam, nint lParam);
+    public void WM_WINDOWPOSCHANGED(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent to a window whose size, position, or place in the Z order is about to change as a 
@@ -503,5 +501,5 @@ public interface IWin32NativeWindowMessageHandler
     /// A pointer to a WINDOWPOS structure that contains information 
     /// about the window's new size and position.
     /// </param>
-    public void WM_WINDOWPOSCHANGING(nint hWnd, nint wParam, nint lParam);
+    public void WM_WINDOWPOSCHANGING(HWND hWnd, IntPtr wParam, IntPtr lParam);
 }

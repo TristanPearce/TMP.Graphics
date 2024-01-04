@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vanara.PInvoke;
 
 namespace TMP.Graphics.Win32;
 
 public class ConsoleLoggingWin32NativeWindowMessageHandler : Win32NativeWindowMessageHandler
 {
 
-    public override void WM_MOVE(nint hWnd, nint wParam, nint lParam)
+    public override void WM_MOVE(HWND hWnd, IntPtr wParam, IntPtr lParam)
     {
         int x = LOWORD(lParam);
         int y = HIWORD(lParam);
@@ -17,7 +18,7 @@ public class ConsoleLoggingWin32NativeWindowMessageHandler : Win32NativeWindowMe
         Console.WriteLine($"Position ({x},{y})");
     }
 
-    public override void WM_SIZE(nint hWnd, nint wParam, nint lParam)
+    public override void WM_SIZE(HWND hWnd, IntPtr wParam, IntPtr lParam)
     {
         int width = LOWORD(lParam);
         int height = HIWORD(lParam);
