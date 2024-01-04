@@ -1,6 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using TMP.Graphics;
-using TMP.Graphics.Win32;
+using TMP.Graphics.Win32.Window;
 
 Console.WriteLine("Hello, World!");
 
