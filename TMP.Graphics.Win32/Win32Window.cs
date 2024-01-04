@@ -8,6 +8,7 @@ using Vanara.PInvoke;
 using TMP.Graphics.Utils;
 using TMP.Graphics.Window;
 using static Vanara.PInvoke.User32;
+using System.Numerics;
 
 namespace TMP.Graphics.Win32;
 
@@ -19,8 +20,8 @@ public sealed class Win32Window : IWindow
     private User32.WNDCLASS _wc;
     private SafeHWND _windowPointer;
 
-    public Vector2I Position { get; set; }
-    public Vector2I Size { get; set; }
+    public Vector2 Position { get; set; }
+    public Vector2 Size { get; set; }
     public WindowMode WindowMode { get; set; }
 
     public IWin32NativeWindowMessageHandler MessageHandler { get; init; }
