@@ -11,13 +11,13 @@ using static Vanara.PInvoke.User32;
 
 namespace TMP.Graphics.Win32;
 
-public class Win32Window : IWindow
+public sealed class Win32Window : IWindow
 {
 
-    string CLASS_NAME = "Sample Window Class";
-    User32.WNDCLASS wc;
+    private const string CLASS_NAME = "Sample Window Class";
 
-    SafeHWND WindowPointer;
+    private User32.WNDCLASS _wc;
+    private SafeHWND _windowPointer;
 
     public Vector2I Position { get; set; }
     public Vector2I Size { get; set; }
@@ -30,14 +30,14 @@ public class Win32Window : IWindow
         MessageHandler = new Win32NativeWindowMessageHandler();
         unsafe
         {
-            wc = new User32.WNDCLASS();
-            wc.lpfnWndProc = WindowProc;
-            wc.hInstance = Kernel32.GetModuleHandle(null);
-            wc.lpszClassName = CLASS_NAME;
+            _wc = new User32.WNDCLASS();
+            _wc.lpfnWndProc = WindowProc;
+            _wc.hInstance = Kernel32.GetModuleHandle(null);
+            _wc.lpszClassName = CLASS_NAME;
 
-            RegisterClass(in wc);
+            RegisterClass(in _wc);
 
-            WindowPointer = User32.CreateWindowEx(
+            _windowPointer = User32.CreateWindowEx(
                 User32.WindowStylesEx.WS_EX_ACCEPTFILES,                              // Optional window styles.
                 CLASS_NAME,                     // Window class
                 "Learn to Program Windows",    // Window text
@@ -52,7 +52,7 @@ public class Win32Window : IWindow
                 IntPtr.Zero        // Additional application data
                 );
 
-            if (WindowPointer.IsInvalid)
+            if (_windowPointer.IsInvalid)
             {
                 throw new Exception($"Window could not be created : {Kernel32.GetLastError()}");
             }
@@ -62,7 +62,7 @@ public class Win32Window : IWindow
     public void PumpEvents()
     {
         MSG msg = new MSG();
-        GetMessage(out msg, WindowPointer, 0, 0);
+        GetMessage(out msg, _windowPointer, 0, 0);
         TranslateMessage(in msg);
         DispatchMessage(in msg);
     }
@@ -176,12 +176,12 @@ public class Win32Window : IWindow
 
     public void Show()
     {
-        User32.ShowWindow(WindowPointer, ShowWindowCommand.SW_SHOW);
+        User32.ShowWindow(_windowPointer, ShowWindowCommand.SW_SHOW);
     }
 
     public void Hide()
     {
-        User32.ShowWindow(WindowPointer, ShowWindowCommand.SW_HIDE);
+        User32.ShowWindow(_windowPointer, ShowWindowCommand.SW_HIDE);
     }
 
     
