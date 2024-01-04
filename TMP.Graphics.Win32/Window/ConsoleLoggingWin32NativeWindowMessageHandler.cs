@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Vanara.PInvoke;
 
-namespace TMP.Graphics.Win32;
+namespace TMP.Graphics.Win32.Window;
 
 public class ConsoleLoggingWin32NativeWindowMessageHandler : Win32NativeWindowMessageHandler
 {
@@ -28,13 +28,13 @@ public class ConsoleLoggingWin32NativeWindowMessageHandler : Win32NativeWindowMe
 
     private static unsafe int LOWORD(nint ptr)
     {
-        int low = ((int)ptr) & 0xFFFF;
+        int low = (int)ptr & 0xFFFF;
         return low;
     }
 
     private static unsafe int HIWORD(nint ptr)
     {
-        int high = ((int)ptr) >> 16;
+        int high = (int)ptr >> 16;
         return high;
     }
 }

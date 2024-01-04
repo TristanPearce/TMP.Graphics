@@ -10,14 +10,14 @@ using TMP.Graphics.Window;
 using static Vanara.PInvoke.User32;
 using System.Numerics;
 
-namespace TMP.Graphics.Win32;
+namespace TMP.Graphics.Win32.Window;
 
 public sealed class Win32Window : IWindow
 {
 
     private const string CLASS_NAME = "Sample Window Class";
 
-    private User32.WNDCLASS _wc;
+    private WNDCLASS _wc;
     private SafeHWND _windowPointer;
 
     public Vector2 Position { get; set; }
@@ -31,18 +31,18 @@ public sealed class Win32Window : IWindow
         MessageHandler = new Win32NativeWindowMessageHandler();
         unsafe
         {
-            _wc = new User32.WNDCLASS();
+            _wc = new WNDCLASS();
             _wc.lpfnWndProc = WindowProc;
             _wc.hInstance = Kernel32.GetModuleHandle(null);
             _wc.lpszClassName = CLASS_NAME;
 
             RegisterClass(in _wc);
 
-            _windowPointer = User32.CreateWindowEx(
-                User32.WindowStylesEx.WS_EX_ACCEPTFILES,                              // Optional window styles.
+            _windowPointer = CreateWindowEx(
+                WindowStylesEx.WS_EX_ACCEPTFILES,                              // Optional window styles.
                 CLASS_NAME,                     // Window class
                 "Learn to Program Windows",    // Window text
-                User32.WindowStyles.WS_OVERLAPPEDWINDOW,            // Window style
+                WindowStyles.WS_OVERLAPPEDWINDOW,            // Window style
 
                 // Size and position
                 100, 100, 400, 400,
@@ -177,13 +177,13 @@ public sealed class Win32Window : IWindow
 
     public void Show()
     {
-        User32.ShowWindow(_windowPointer, ShowWindowCommand.SW_SHOW);
+        ShowWindow(_windowPointer, ShowWindowCommand.SW_SHOW);
     }
 
     public void Hide()
     {
-        User32.ShowWindow(_windowPointer, ShowWindowCommand.SW_HIDE);
+        ShowWindow(_windowPointer, ShowWindowCommand.SW_HIDE);
     }
 
-    
+
 }

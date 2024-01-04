@@ -14,7 +14,8 @@ using System.Diagnostics.Contracts;
 
 using Vanara.PInvoke;
 using static Vanara.PInvoke.User32;
-namespace TMP.Graphics.Win32;
+
+namespace TMP.Graphics.Win32.Window;
 
 public interface IWin32NativeWindowMessageHandler
 {
@@ -198,7 +199,7 @@ public interface IWin32NativeWindowMessageHandler
     /// by setting the members of this structure.
     /// </param>
     public void WM_GETMINMAXINFO(HWND hWnd, IntPtr wParam, IntPtr lParam);
-    
+
     /// <summary>
     /// Sent to the topmost affected window after an application's input language has 
     /// been changed. You should make any application-specific settings and pass the 
@@ -248,7 +249,7 @@ public interface IWin32NativeWindowMessageHandler
     /// The low-order word contains the x-coordinate while the high-order word 
     /// contains the y coordinate.
     /// </param>
-    public void WM_MOVE(HWND hWnd, IntPtr wParam, IntPtr lParam);    
+    public void WM_MOVE(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
     /// Sent to a window that the user is moving. By processing this message, 
@@ -340,7 +341,7 @@ public interface IWin32NativeWindowMessageHandler
     /// <param name="hWnd"></param>
     /// <param name="wParam">This parameter is not used.</param>
     /// <param name="lParam">This parameter is not used.</param>
-        /// <returns>An application returns zero if it processes this message.</returns>
+    /// <returns>An application returns zero if it processes this message.</returns>
     public void WM_NULL(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
