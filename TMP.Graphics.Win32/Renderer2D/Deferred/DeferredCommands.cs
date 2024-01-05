@@ -19,10 +19,7 @@ namespace TMP.Graphics.Win32.Renderer2D.Deferred
             _line = line;
         }
 
-        public static explicit operator Line(DrawLineDeferredCommand command) 
-        {
-            return command._line;
-        }
+        public static explicit operator Line(DrawLineDeferredCommand command) => command._line;
     }
 
     internal class DrawEllipseDeferredCommand : DeferredCommand
@@ -33,6 +30,8 @@ namespace TMP.Graphics.Win32.Renderer2D.Deferred
         {
             _ellipse = ellipse;
         }
+
+        public static explicit operator Ellipse(DrawEllipseDeferredCommand command) => command._ellipse;
     }
 
     internal class DrawRectangleDeferredCommand : DeferredCommand
@@ -43,6 +42,8 @@ namespace TMP.Graphics.Win32.Renderer2D.Deferred
         {
             _rectangle = rectangle;
         }
+
+        public static explicit operator Rectangle(DrawRectangleDeferredCommand command) => command._rectangle;
     }
 
     internal class DrawImageDeferredCommand : DeferredCommand
@@ -52,6 +53,8 @@ namespace TMP.Graphics.Win32.Renderer2D.Deferred
         {
             _image = image;
         }
+
+        public static explicit operator Image(DrawImageDeferredCommand command) => command._image;
     }
 
     internal class DrawPolygonDeferredCommand : DeferredCommand
@@ -62,6 +65,8 @@ namespace TMP.Graphics.Win32.Renderer2D.Deferred
         {
             _polygon = polygon;
         }
+
+        public static explicit operator Polygon(DrawPolygonDeferredCommand command) => command._polygon;
     }
 
     internal class SetOutlineDeferredCommand : DeferredCommand
@@ -73,10 +78,7 @@ namespace TMP.Graphics.Win32.Renderer2D.Deferred
             _outline = outline;
         }
 
-        public static explicit operator Outline(SetOutlineDeferredCommand command)
-        {
-            return command._outline;
-        }
+        public static explicit operator Outline(SetOutlineDeferredCommand command) => command._outline;
     }
 
     internal class SetFillDeferredCommand : DeferredCommand
@@ -87,5 +89,7 @@ namespace TMP.Graphics.Win32.Renderer2D.Deferred
         {
             _fill = fill;
         }
+
+        public static explicit operator Fill(SetFillDeferredCommand command) => command._fill;
     }
 }

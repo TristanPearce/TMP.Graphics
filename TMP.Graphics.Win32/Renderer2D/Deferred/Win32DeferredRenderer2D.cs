@@ -50,30 +50,15 @@ namespace TMP.Graphics.Win32.Renderer2D.Deferred
             }
         }
 
-        public void Draw(Line line)
-        {
-            _deferredCommands.Add(new DrawLineDeferredCommand(line));
-        }
+        public void Draw(Line line) => _deferredCommands.Add(new DrawLineDeferredCommand(line));
 
-        public void Draw(Ellipse ellipse)
-        {
-            _deferredCommands.Add(new DrawEllipseDeferredCommand(ellipse));
-        }
+        public void Draw(Ellipse ellipse) => _deferredCommands.Add(new DrawEllipseDeferredCommand(ellipse));
 
-        public void Draw(Rectangle rectangle)
-        {
-            _deferredCommands.Add(new DrawRectangleDeferredCommand(rectangle));
-        }
+        public void Draw(Rectangle rectangle) => _deferredCommands.Add(new DrawRectangleDeferredCommand(rectangle));
 
-        public void Draw(Polygon polygon)
-        {
-            _deferredCommands.Add(new DrawPolygonDeferredCommand(polygon));
-        }
+        public void Draw(Polygon polygon) => _deferredCommands.Add(new DrawPolygonDeferredCommand(polygon));
 
-        public void Draw(Image image)
-        {
-            _deferredCommands.Add(new DrawImageDeferredCommand(image));
-        }
+        public void Draw(Image image) => _deferredCommands.Add(new DrawImageDeferredCommand(image));
 
         private class Win32WindowMessageHandler : Win32NativeWindowMessageHandler
         {

@@ -58,8 +58,18 @@ namespace TMP.Graphics.Win32.Renderer2D.Deferred
             {
                 if (command is DrawLineDeferredCommand line)
                     Draw((Line)line);
+                else if (command is DrawEllipseDeferredCommand ellipse)
+                    Draw((Ellipse)ellipse);
+                else if (command is DrawRectangleDeferredCommand rectangle)
+                    Draw((Rectangle)rectangle);
+                else if (command is DrawImageDeferredCommand image)
+                    Draw((Image)image);
+                else if (command is DrawPolygonDeferredCommand polygon)
+                    Draw((Polygon)polygon);
                 else if (command is SetOutlineDeferredCommand outline)
                     Outline = (Outline)outline;
+                else if (command is SetFillDeferredCommand fill)
+                    Fill = (Fill)fill;
             }
         }
 
@@ -67,6 +77,26 @@ namespace TMP.Graphics.Win32.Renderer2D.Deferred
         {
             MoveToEx(HDC, (int)line.Start.X, (int)line.Start.Y, out POINT p);  // Move to starting point
             LineTo(HDC, (int)line.End.X, (int)line.End.Y);           // Draw a line to ending 
+        }
+
+        private void Draw(Ellipse ellipse)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Draw(Rectangle rectangle)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Draw(Image image)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Draw(Polygon polygon)
+        {
+            throw new NotImplementedException();
         }
     }
 }
