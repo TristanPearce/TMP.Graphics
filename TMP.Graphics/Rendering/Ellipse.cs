@@ -8,35 +8,49 @@ namespace TMP.Graphics
 {
     public struct Ellipse
     {
-        public float X;
-        public float Y;
-        public float Width;
-        public float Height;
+        public float X { get; set; }
+        public float Y { get; set; }
+        public float Width { get; set; }
+        public float Height { get; set; }
 
         public float Left
         {
-            readonly get => X - Width / 2;
-            set => X = value + Width / 2;
+            get => X - Width / 2;
+            set
+            {
+                Width = Right - value;
+                X = value + Width / 2;
+            }
         }
 
         public float Right
         {
-            readonly get => X + Width / 2;
-            set => X = value - Width / 2;
+            get => X + Width / 2;
+            set
+            {
+                Width = value - Left;
+                X = value - Width / 2;
+            }
         }
 
-        public float Top 
+        public float Top
         {
-            readonly get => Y - Height / 2;
-            set => Y = value - Height / 2;
+            get => Y + Height / 2;
+            set
+            {
+                Height = value - Bottom;
+                Y = value - Height / 2;
+            }
         }
-
 
         public float Bottom
         {
-            readonly get => Y + Height / 2;
-            set => Height = value + Height / 2;
+            get => Y - Height / 2;
+            set
+            {
+                Height = Top - value;
+                Y = value + Height / 2;
+            }
         }
-
     }
 }

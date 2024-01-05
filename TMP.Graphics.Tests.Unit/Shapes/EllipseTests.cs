@@ -42,12 +42,12 @@ namespace TMP.Graphics.Tests.Unit.Shapes
         /// <param name="expectedTop"></param>
         /// <param name="expectedBottom"></param>
         [Theory]
-        [InlineData(/* Input */0, 0, 0, 0,         
+        [InlineData(/* Input */0, 0, 0, 0,
             /* Expected */ 0, 0, 0, 0)]
-        [InlineData(/* Input */50, 100, 100, 50,   
+        [InlineData(/* Input */50, 100, 100, 50,
             /* Expected */ 75, 75, 50, 50)]
-        [InlineData(/* Input */-50, 50, 100, -100, 
-            /* Expected */ 0, 0, 150, 150)]
+        [InlineData(/* Input */-50, 50, 100, -100,
+            /* Expected */ 0, 0, 100, 200)]
         public void SetLRTB_ConfirmXYWH(float left, float right, float top, float bottom,
             float expectedX, float expectedY, float expectedWidth, float expectedHeight)
         {
