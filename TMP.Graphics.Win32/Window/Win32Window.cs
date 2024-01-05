@@ -187,21 +187,7 @@ public sealed class Win32Window : IWindow
                 break;
 
             case WindowMessage.WM_PAINT:
-                PAINTSTRUCT ps;
-                HDC hdc = BeginPaint(hwnd, out ps);
-
-                HPEN hPen = CreatePen((uint)PenStyle.PS_SOLID, 2, new COLORREF(255, 0, 0));  // Red pen
-                HGDIOBJ hOldPen = SelectObject(hdc, hPen);
-
-                MoveToEx(hdc, 50, 50, out POINT p);  // Move to starting point
-                LineTo(hdc, 200, 200);           // Draw a line to ending point
-                Ellipse(hdc, 100, 100, 300, 300);
-
-                SelectObject(hdc, hOldPen);
-                DeleteObject(hPen);
-
-                EndPaint(hwnd, in ps);
-
+                _collectionDispatchMessageHandler.WM_PAINT(hwnd, wParam, lParam);
                 break;
         }
         return DefWindowProc(hwnd, message, (nint)wParam, (nint)lParam);
@@ -217,5 +203,8 @@ public sealed class Win32Window : IWindow
         ShowWindow(_windowPointer, ShowWindowCommand.SW_HIDE);
     }
 
-
+    public static explicit operator SafeHWND(Win32Window window)
+    {
+        return window._windowPointer;
+    }
 }
