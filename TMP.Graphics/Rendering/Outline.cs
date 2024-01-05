@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace TMP.Graphics.Rendering
 {
-    public class Outline
+    public readonly struct Outline
     {
-
-        public Colour Colour { get; set; }
-        public float Thickness { get; set; }
-
+        public readonly Colour Colour { get; init; }
+        public readonly float Thickness { get; init; }
     }
 }

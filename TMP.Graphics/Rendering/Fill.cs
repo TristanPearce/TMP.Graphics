@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace TMP.Graphics.Rendering
 {
-    public class Fill
+    public readonly struct Fill
     {
-
-        public Colour Colour { get; set; }
-
+        public readonly Colour Colour { get; init; }
     }
 }
