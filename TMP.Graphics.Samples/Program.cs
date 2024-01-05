@@ -4,10 +4,8 @@ using TMP.Graphics.Win32.Window;
 
 Console.WriteLine("Hello, World!");
 
-Win32Window window = new Win32Window()
-{
-    MessageHandler = new ConsoleLoggingWin32NativeWindowMessageHandler()
-};
+Win32Window window = new Win32Window();
+window.MessageHandlers.Add(new ConsoleLoggingWin32NativeWindowMessageHandler());
 window.Show();
 
 while (true)

@@ -37,6 +37,7 @@ public class Win32NativeWindowMessageHandler : IWin32NativeWindowMessageHandler
     public virtual void WM_NCCREATE(HWND hWnd, IntPtr wParam, IntPtr lParam) { }
     public virtual void WM_NCDESTROY(HWND hWnd, IntPtr wParam, IntPtr lParam) { }
     public virtual void WM_NULL(HWND hWnd, IntPtr wParam, IntPtr lParam) { }
+    public virtual void WM_PAINT(HWND hWnd, IntPtr wParam, IntPtr lParam) { }
     public virtual void WM_QUERYDRAGICON(HWND hWnd, IntPtr wParam, IntPtr lParam) { }
     public virtual void WM_QUERYOPEN(HWND hWnd, IntPtr wParam, IntPtr lParam) { }
     public virtual void WM_QUIT(HWND hWnd, IntPtr wParam, IntPtr lParam) { }

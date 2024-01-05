@@ -345,6 +345,19 @@ public interface IWin32NativeWindowMessageHandler
     public void WM_NULL(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
     /// <summary>
+    /// The WM_PAINT message is sent when the system or another application makes a 
+    /// request to paint a portion of an application's window. The message is sent 
+    /// when the UpdateWindow or RedrawWindow function is called, or by the DispatchMessage 
+    /// function when the application obtains a WM_PAINT message by using the GetMessage 
+    /// or PeekMessage function.
+    /// </summary>
+    /// <param name="hWnd"></param>
+    /// <see cref="https://learn.microsoft.com/en-us/windows/win32/gdi/wm-paint"/>
+    /// <param name="wParam">This parameter is not used.</param>
+    /// <param name="lParam">This parameter is not used.</param>
+    public void WM_PAINT(HWND hWnd, IntPtr wParam, IntPtr lParam);
+
+    /// <summary>
     /// Sent to a minimized (iconic) window. The window is about to be dragged by 
     /// the user but does not have an icon defined for its class. An application 
     /// can return a handle to an icon or cursor. The system displays this cursor 
