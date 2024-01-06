@@ -8,10 +8,37 @@ namespace TMP.Graphics
 {
     public class Rectangle
     {
-        public float X { get; set; }
-        public float Y { get; set; }
-        public float Width { get; set; }
-        public float Height { get; set; }
+        private Transform2D _transform = new Transform2D();
+
+        public float Rotation 
+        {  
+            get => _transform.Rotation; 
+            set => _transform.Rotation = value;
+        }
+
+        public float X 
+        { 
+            get => _transform.Translation.X; 
+            set => _transform.Translation.X = value;
+        }
+
+        public float Y 
+        { 
+            get => _transform.Translation.Y; 
+            set => _transform.Translation.Y = value;
+        }
+
+        public float Width 
+        { 
+            get => _transform.Scale.X;
+            set => _transform.Scale.X = value; 
+        }
+
+        public float Height 
+        {
+            get => _transform.Scale.Y;
+            set => _transform.Scale.Y = value;
+        }
 
         public float Left
         {
@@ -51,6 +78,11 @@ namespace TMP.Graphics
                 Height = Top - value;
                 Y = value + Height / 2;
             }
+        }
+
+        public static explicit operator Transform2D(Rectangle rectangle)
+        {
+            return rectangle._transform;
         }
     }
 }
