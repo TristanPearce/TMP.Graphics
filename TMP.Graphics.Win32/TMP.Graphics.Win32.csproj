@@ -16,4 +16,8 @@
     <ProjectReference Include="..\TMP.Graphics\TMP.Graphics.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Renderer2D\Immediate\" />
+  </ItemGroup>
+
 </Project>
