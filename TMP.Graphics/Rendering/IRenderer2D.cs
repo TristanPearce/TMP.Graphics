@@ -9,7 +9,7 @@ namespace TMP.Graphics.Rendering
 {
     public interface IRenderer2D
     {
-        Fill FillColor { get; set; }
+        Fill Fill { get; set; }
         Outline Outline { get; set; }
 
         void Draw(Line line);
@@ -17,5 +17,7 @@ namespace TMP.Graphics.Rendering
         void Draw(Rectangle rectangle);
         void Draw(Polygon polygon);
         void Draw(Image image);
+
+        void Clear();
     }
 }
