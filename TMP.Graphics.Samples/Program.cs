@@ -11,6 +11,8 @@ Win32Window window = new Win32Window();
 window.MessageHandlers.Add(new ConsoleLoggingWin32NativeWindowMessageHandler());
 Win32RenderContext rc = new Win32RenderContext(window);
 
+float value = 0;
+
 rc.Rendering += Rendering;
 
 void Rendering(IRenderer2D renderer)
@@ -41,13 +43,29 @@ void Rendering(IRenderer2D renderer)
     rectangle.Height = 200;
     renderer.Draw(rectangle);
 
-    renderer.Clear(new Colour() { Red = 255 });
+    renderer.Outline = new Outline()
+    {
+        Colour = new Colour() { Red = 255, Blue = 255 },
+        Thickness = 10
+    };
+    renderer.Fill = new Fill() { Colour = new Colour() { Green = 255 } };
+    Polygon poly = new Polygon(
+        new Vector2[]
+        {
+            new Vector2(0, 0),
+            new Vector2(100, 100),
+            new Vector2(200, MathF.Sin(value) * 100f),
+            new Vector2(100, 200)
+        });
+    renderer.Draw(poly);
 }
 
 window.Show();
 
 while (true)
 {
+    value = (value + 0.01f);
+    rc.Refresh();
     window.PumpEvents();
     Thread.Sleep(10);
 }

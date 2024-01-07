@@ -39,10 +39,9 @@ namespace TMP.Graphics.Win32
             }
         }
 
-        public Win32GDIRenderer2D(PAINTSTRUCT ps, Win32Window window)
+        public Win32GDIRenderer2D(HDC hDC, Win32Window window)
         {
-            _hdc = ps.hdc;
-            _ps = ps;
+            _hdc = hDC;
 
             _window = window;
         }
@@ -83,7 +82,9 @@ namespace TMP.Graphics.Win32
 
         public void Draw(Polygon polygon)
         {
-            throw new NotImplementedException();
+            var points = polygon.Select(x => new POINT((int)x.X, (int)x.Y)).ToArray();
+
+            Gdi32.Polygon(_hdc, points, points.Length);
         }
 
         public void Draw(Image image)

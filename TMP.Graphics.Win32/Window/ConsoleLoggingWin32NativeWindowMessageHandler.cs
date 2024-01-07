@@ -26,6 +26,11 @@ public class ConsoleLoggingWin32NativeWindowMessageHandler : Win32NativeWindowMe
         Console.WriteLine($"Size ({width},{height})");
     }
 
+    public override void WM_PAINT(HWND hWnd, IntPtr wParam, IntPtr lParam)
+    {
+        Console.WriteLine("Paint");
+    }
+
     private static unsafe int LOWORD(nint ptr)
     {
         int low = (int)ptr & 0xFFFF;

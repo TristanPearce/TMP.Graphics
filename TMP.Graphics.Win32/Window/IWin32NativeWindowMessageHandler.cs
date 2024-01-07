@@ -147,6 +147,8 @@ public interface IWin32NativeWindowMessageHandler
     /// <param name="lParam">This parameter is not used.</param>
     public void WM_ENTERSIZEMOVE(HWND hWnd, IntPtr wParam, IntPtr lParam);
 
+    public void WM_ERASEBKGND(HWND hWnd, IntPtr wParam, IntPtr lParam);
+
     /// <summary>
     /// Sent one time to a window, after it has exited the moving or sizing modal loop. 
     /// The window enters the moving or sizing modal loop when the user clicks the 

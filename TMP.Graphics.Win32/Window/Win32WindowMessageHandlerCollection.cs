@@ -92,6 +92,12 @@ namespace TMP.Graphics.Win32.Window
                     handler.WM_ENTERSIZEMOVE(hWnd, wParam, lParam);
             }
 
+            public void WM_ERASEBKGND(HWND hWnd, IntPtr wParam, IntPtr lParam)
+            {
+                foreach (var handler in _collection._nativeHandlers)
+                    handler.WM_ERASEBKGND(hWnd, wParam, lParam);
+            }
+
             public void WM_EXITSIZEMOVE(HWND hWnd, IntPtr wParam, IntPtr lParam)
             {
                 foreach (var handler in _collection._nativeHandlers)

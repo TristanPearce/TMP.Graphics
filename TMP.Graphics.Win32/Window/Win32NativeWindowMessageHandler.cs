@@ -25,6 +25,7 @@ public class Win32NativeWindowMessageHandler : IWin32NativeWindowMessageHandler
     public virtual void WM_DESTROY(HWND hWnd, IntPtr wParam, IntPtr lParam) { }
     public virtual void WM_ENABLE(HWND hWnd, IntPtr wParam, IntPtr lParam) { }
     public virtual void WM_ENTERSIZEMOVE(HWND hWnd, IntPtr wParam, IntPtr lParam) { }
+    public virtual void WM_ERASEBKGND(HWND hWnd, IntPtr wParam, IntPtr lParam) { }
     public virtual void WM_EXITSIZEMOVE(HWND hWnd, IntPtr wParam, IntPtr lParam) { }
     public virtual void WM_GETICON(HWND hWnd, IntPtr wParam, IntPtr lParam) { }
     public virtual void WM_GETMINMAXINFO(HWND hWnd, IntPtr wParam, IntPtr lParam) { }

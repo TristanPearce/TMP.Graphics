@@ -47,6 +47,7 @@ public sealed class Win32Window : IWindow
         _wc.lpfnWndProc = WindowProc;
         _wc.hInstance = Kernel32.GetModuleHandle(null);
         _wc.lpszClassName = CLASS_NAME;
+        _wc.style = 0;
 
         RegisterClass(in _wc);
     }
@@ -188,6 +189,8 @@ public sealed class Win32Window : IWindow
 
             case WindowMessage.WM_PAINT:
                 _collectionDispatchMessageHandler.WM_PAINT(hwnd, wParam, lParam);
+                return (IntPtr)1;
+            case WindowMessage.WM_ERASEBKGND:
                 break;
         }
         return DefWindowProc(hwnd, message, (nint)wParam, (nint)lParam);
