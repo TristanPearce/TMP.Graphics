@@ -18,6 +18,6 @@ namespace TMP.Graphics.Rendering
         void Draw(Polygon polygon);
         void Draw(Image image);
 
-        void Clear();
+        void Clear(Colour colour);
     }
 }

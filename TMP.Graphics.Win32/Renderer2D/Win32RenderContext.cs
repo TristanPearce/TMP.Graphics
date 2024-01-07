@@ -26,7 +26,7 @@ namespace TMP.Graphics.Win32
 
         private IRenderer2D CreateRenderer2D(HDC hdc, PAINTSTRUCT ps)
         {
-            return new Win32GDIRenderer2D(hdc, ps);
+            return new Win32GDIRenderer2D(ps, _window);
         }
 
         private class Win32MessageHandler : Win32NativeWindowMessageHandler
