@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TMP.Graphics.Rendering;
-using TMP.Graphics.Win32.Renderer2D.Immediate;
 using TMP.Graphics.Win32.Window;
 using static Vanara.PInvoke.User32;
 using Vanara.PInvoke;
@@ -13,7 +12,7 @@ namespace TMP.Graphics.Win32
 {
     public class Win32RenderContext : IRenderContext
     {
-        public event Action<IRenderer2D> Rendering;
+        public event Action<IRenderer2D>? Rendering;
 
         private Win32Window _window;
         private IWin32NativeWindowMessageHandler _windowMessageHandler;
@@ -27,7 +26,7 @@ namespace TMP.Graphics.Win32
 
         private IRenderer2D CreateRenderer2D(HDC hdc, PAINTSTRUCT ps)
         {
-            return new Win32ImmediateModeRenderer2D(hdc, ps);
+            return new Win32GDIRenderer2D(hdc, ps);
         }
 
         private class Win32MessageHandler : Win32NativeWindowMessageHandler

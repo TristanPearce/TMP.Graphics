@@ -6,7 +6,7 @@ using Vanara.PInvoke;
 using static Vanara.PInvoke.Gdi32;
 using static Vanara.PInvoke.User32;
 
-namespace TMP.Graphics.Win32.Renderer2D
+namespace TMP.Graphics.Win32
 {
     internal class Win32GDIRenderer2D : IRenderer2D
     {
