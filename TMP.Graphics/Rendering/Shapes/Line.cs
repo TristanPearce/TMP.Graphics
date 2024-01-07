@@ -14,8 +14,8 @@ namespace TMP.Graphics
 
         public Line(Vector2 start, Vector2 end)
         {
-            this.Start = start;
-            this.End = end;
+            Start = start;
+            End = end;
         }
     }
 }
