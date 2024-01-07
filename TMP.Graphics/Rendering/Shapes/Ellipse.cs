@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TMP.Graphics
 {
-    public struct Ellipse
+    public class Ellipse
     {
         public float X { get; set; }
         public float Y { get; set; }

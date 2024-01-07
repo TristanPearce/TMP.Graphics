@@ -16,6 +16,7 @@ namespace TMP.Graphics.Rendering
         void Draw(Ellipse ellipse);
         void Draw(Rectangle rectangle);
         void Draw(Polygon polygon);
+        void Draw(Path path);
         void Draw(Image image);
 
         void Clear(Colour colour);

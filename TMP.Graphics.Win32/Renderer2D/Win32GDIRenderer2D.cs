@@ -92,6 +92,11 @@ namespace TMP.Graphics.Win32
             throw new NotImplementedException();
         }
 
+        public void Draw(Path path)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Clear(Colour colour)
         {
             Fill oldFill = Fill;

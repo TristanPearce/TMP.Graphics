@@ -7,15 +7,17 @@ using System.Threading.Tasks;
 
 namespace TMP.Graphics
 {
-    public class Line
+    public class Path
     {
-        public Vector2 Start;
-        public Vector2 End;
 
-        public Line(Vector2 start, Vector2 end)
+        public Path() 
         {
-            Start = start;
-            End = end;
+
+        }
+
+        public Vector2 Evaluate(float t)
+        {
+            return new Vector2(t);
         }
     }
 }
