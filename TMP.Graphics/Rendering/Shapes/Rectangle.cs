@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TMP.Graphics
+namespace TMP.Graphics.Rendering.Shapes
 {
     public class Rectangle
     {
@@ -19,25 +19,25 @@ namespace TMP.Graphics
         public float X
         {
             get => _transform.Translation.X;
-            set => _transform.Translation.X = value;
+            set => _transform.SetTranslationX(value);
         }
 
         public float Y
         {
             get => _transform.Translation.Y;
-            set => _transform.Translation.Y = value;
+            set => _transform.SetTranslationY(value);
         }
 
         public float Width
         {
             get => _transform.Scale.X;
-            set => _transform.Scale.X = value;
+            set => _transform.SetScaleX(value);
         }
 
         public float Height
         {
             get => _transform.Scale.Y;
-            set => _transform.Scale.Y = value;
+            set => _transform.SetScaleY(value);
         }
 
         public float Left

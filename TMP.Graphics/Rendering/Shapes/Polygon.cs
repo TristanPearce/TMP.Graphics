@@ -6,7 +6,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TMP.Graphics
+namespace TMP.Graphics.Rendering.Shapes
 {
     public class Polygon : IEnumerable<Vector2>
     {
@@ -20,7 +20,7 @@ namespace TMP.Graphics
 
         public float Rotation
         {
-            get => _transform.Rotation; 
+            get => _transform.Rotation;
             set => _transform.Rotation = value;
         }
 
