@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TMP.Graphics.Tests.Unit
+﻿namespace TMP.Graphics.Tests.Unit
 {
     public class Transform2DTests
     {
@@ -94,6 +88,26 @@ namespace TMP.Graphics.Tests.Unit
             transform.ScaleBy(dX, dY, Transform2D.ScaleByMethod.Exponential);
             Assert.Equal(1, transform.Scale.X);
             Assert.Equal(1, transform.Scale.Y);
+        }
+
+        [Theory]
+        [InlineData(0f)]
+        public void SetRotation(float angle)
+        {
+            Transform2D transform = new Transform2D();
+            transform.SetRotation(angle);
+
+            Assert.Equal(angle, transform.Rotation);
+        }
+
+        [Theory]
+        [InlineData(30)]
+        public void RotateBy(float dAngle)
+        {
+            Transform2D transform = new Transform2D();
+            transform.RotateBy(dAngle);
+
+            Assert.Equal(dAngle, transform.Rotation);
         }
     }
 }
