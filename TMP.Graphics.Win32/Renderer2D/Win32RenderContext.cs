@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TMP.Graphics.Rendering;
+using TMP.Graphics.Rendering2D;
 using TMP.Graphics.Win32.Window;
 using static Vanara.PInvoke.User32;
 using Vanara.PInvoke;

@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Numerics;
 using TMP.Graphics;
-using TMP.Graphics.Rendering;
+using TMP.Graphics.Rendering2D;
 using TMP.Graphics.Win32;
 using TMP.Graphics.Win32.Window;
 

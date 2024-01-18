@@ -4,9 +4,8 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-using TMP.Graphics.Rendering.Shapes;
 
-namespace TMP.Graphics.Rendering
+namespace TMP.Graphics.Rendering2D
 {
     public interface IRenderer2D
     {

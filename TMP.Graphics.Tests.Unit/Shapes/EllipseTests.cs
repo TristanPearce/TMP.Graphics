@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TMP.Graphics.Rendering;
-using TMP.Graphics.Rendering.Shapes;
+using TMP.Graphics.Rendering2D;
 
 namespace TMP.Graphics.Tests.Unit.Shapes
 {

@@ -1,7 +1,8 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Linq;
+using System.Numerics;
 using System.Runtime.CompilerServices;
-using TMP.Graphics.Rendering;
-using TMP.Graphics.Rendering.Shapes;
+using TMP.Graphics.Rendering2D;
 using TMP.Graphics.Win32.Window;
 using Vanara.PInvoke;
 using static Vanara.PInvoke.Gdi32;

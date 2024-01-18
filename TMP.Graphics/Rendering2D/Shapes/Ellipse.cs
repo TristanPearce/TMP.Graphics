@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TMP.Graphics.Rendering.Shapes
+namespace TMP.Graphics.Rendering2D
 {
     public class Ellipse
     {
