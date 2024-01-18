@@ -21,22 +21,22 @@ namespace TMP.Graphics.Win32
         private HDC _bufferContext;
         private Gdi32.SafeHBITMAP _bufferBitmap;
 
-        public Win32RenderContext(Win32Window window) 
+        public Win32RenderContext(Win32Window window)
         {
             _window = window;
-            _windowMessageHandler = new Win32RenderContext.Win32MessageHandler(this);
+            _windowMessageHandler = new Win32MessageHandler(this);
             _window.MessageHandlers.Add(_windowMessageHandler);
         }
 
         private IRenderer2D CreateRenderer2D(HDC hdc)
         {
-            return new Win32GDIRenderer2D(hdc, _window);
+            return new GDIRenderer2D(hdc, _window);
         }
 
         public void Refresh()
         {
-            User32.GetClientRect((SafeHWND)_window, out RECT clientRect);
-            User32.InvalidateRect((SafeHWND)_window, clientRect, true);
+            GetClientRect((SafeHWND)_window, out RECT clientRect);
+            InvalidateRect((SafeHWND)_window, clientRect, true);
         }
 
         private class Win32MessageHandler : Win32NativeWindowMessageHandler
@@ -50,7 +50,7 @@ namespace TMP.Graphics.Win32
 
             public override void WM_PAINT(HWND hWnd, IntPtr wParam, IntPtr lParam)
             {
-                User32.GetClientRect((SafeHWND)_renderContext._window, out RECT clientRect);
+                GetClientRect((SafeHWND)_renderContext._window, out RECT clientRect);
 
                 PAINTSTRUCT ps;
                 HDC hdc = BeginPaint(hWnd, out ps);

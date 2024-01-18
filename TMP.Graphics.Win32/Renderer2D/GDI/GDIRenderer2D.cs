@@ -10,7 +10,7 @@ using static Vanara.PInvoke.User32;
 
 namespace TMP.Graphics.Win32
 {
-    internal class Win32GDIRenderer2D : IRenderer2D
+    internal class GDIRenderer2D : IRenderer2D
     {
         private Win32Window _window;
 
@@ -41,7 +41,7 @@ namespace TMP.Graphics.Win32
             }
         }
 
-        public Win32GDIRenderer2D(HDC hDC, Win32Window window)
+        public GDIRenderer2D(HDC hDC, Win32Window window)
         {
             _hdc = hDC;
 
