@@ -12,5 +12,11 @@ namespace TMP.Graphics
         public byte Green;
         public byte Blue;
         public byte Alpha;
+
+        public Colour()
+        {
+            Red = Green = Blue = 0;
+            Alpha = 255;
+        }
     }
 }

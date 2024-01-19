@@ -8,6 +8,7 @@ using TMP.Graphics.Win32.Window;
 using static Vanara.PInvoke.User32;
 using Vanara.PInvoke;
 using System.Runtime.CompilerServices;
+using TMP.Graphics.Win32.Renderer2D;
 
 namespace TMP.Graphics.Win32
 {
@@ -21,6 +22,8 @@ namespace TMP.Graphics.Win32
         private HDC _bufferContext;
         private Gdi32.SafeHBITMAP _bufferBitmap;
 
+        public Win32RenderingBackend PreferredBackend { get; set; } = Win32RenderingBackend.GdiPlus;
+
         public Win32RenderContext(Win32Window window)
         {
             _window = window;
@@ -30,7 +33,15 @@ namespace TMP.Graphics.Win32
 
         private IRenderer2D CreateRenderer2D(HDC hdc)
         {
-            return new GDIRenderer2D(hdc, _window);
+            switch (PreferredBackend)
+            {
+                case Win32RenderingBackend.Gdi:
+                    return new GDIRenderer2D(hdc, _window);
+                case Win32RenderingBackend.GdiPlus:
+                    return new GDIPlusRenderer2D(hdc);
+                default:
+                    throw new NotImplementedException();
+            }
         }
 
         public void Refresh()
