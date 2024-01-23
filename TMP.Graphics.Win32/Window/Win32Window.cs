@@ -16,8 +16,7 @@ namespace TMP.Graphics.Win32.Window;
 
 public sealed class Win32Window : IWindow
 {
-
-    private const string CLASS_NAME = "Sample Window Class";
+    private string _windowClassName;
 
     private readonly Win32WindowMessageHandlerCollection.Win32DispatchMessageHandler _collectionDispatchMessageHandler;
 
@@ -35,7 +34,7 @@ public sealed class Win32Window : IWindow
         MessageHandlers = new Win32WindowMessageHandlerCollection();
         _collectionDispatchMessageHandler = new Win32WindowMessageHandlerCollection.Win32DispatchMessageHandler(MessageHandlers);
 
-
+        this.CreateClassName();
         this.RegisterWindowClass();
         this.CreateWindow();
         
@@ -46,17 +45,23 @@ public sealed class Win32Window : IWindow
         _wc = new WNDCLASS();
         _wc.lpfnWndProc = WindowProc;
         _wc.hInstance = Kernel32.GetModuleHandle(null);
-        _wc.lpszClassName = CLASS_NAME;
+        _wc.lpszClassName = _windowClassName;
         _wc.style = 0;
 
         RegisterClass(in _wc);
     }
 
+    private void CreateClassName()
+    {
+        const string classNameFormat = "TMP.Graphics.Win32.Win32Window({0})";
+        _windowClassName = string.Format(classNameFormat, Guid.NewGuid());
+    }
+
     private void CreateWindow()
     {
         _windowPointer = CreateWindowEx(
-            WindowStylesEx.WS_EX_ACCEPTFILES,                              // Optional window styles.
-            CLASS_NAME,                     // Window class
+            WindowStylesEx.WS_EX_LEFT,                              // Optional window styles.
+            _windowClassName,                     // Window class
             "Learn to Program Windows",    // Window text
             WindowStyles.WS_OVERLAPPEDWINDOW,            // Window style
 
@@ -77,14 +82,16 @@ public sealed class Win32Window : IWindow
 
     public void PumpEvents()
     {
-        MSG msg = new MSG();
-        GetMessage(out msg, _windowPointer, 0, 0);
+        GetMessage(out MSG msg, _windowPointer, 0, 0);
         TranslateMessage(in msg);
         DispatchMessage(in msg);
     }
 
     unsafe IntPtr WindowProc(HWND hwnd, uint message, IntPtr wParam, IntPtr lParam)
     {
+        if (_windowPointer != null && hwnd != _windowPointer)
+            return DefWindowProc(hwnd, message, (nint)wParam, (nint)lParam); ;
+
         switch ((WindowMessage)message)
         {
             case WindowMessage.WM_ACTIVATEAPP:
@@ -189,7 +196,7 @@ public sealed class Win32Window : IWindow
 
             case WindowMessage.WM_PAINT:
                 _collectionDispatchMessageHandler.WM_PAINT(hwnd, wParam, lParam);
-                return (IntPtr)1;
+                break;
             case WindowMessage.WM_ERASEBKGND:
                 break;
         }
