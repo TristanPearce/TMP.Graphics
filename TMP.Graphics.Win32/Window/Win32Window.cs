@@ -82,9 +82,12 @@ public sealed class Win32Window : IWindow
 
     public void PumpEvents()
     {
-        GetMessage(out MSG msg, _windowPointer, 0, 0);
-        TranslateMessage(in msg);
-        DispatchMessage(in msg);
+        MSG msg;
+        while (PeekMessage(out msg, IntPtr.Zero, 0, 0, PM.PM_REMOVE))
+        {
+            TranslateMessage(in msg);
+            DispatchMessage(in msg);
+        }
     }
 
     unsafe IntPtr WindowProc(HWND hwnd, uint message, IntPtr wParam, IntPtr lParam)

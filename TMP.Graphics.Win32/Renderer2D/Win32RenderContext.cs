@@ -46,8 +46,8 @@ namespace TMP.Graphics.Win32
 
         public void Refresh()
         {
-            GetClientRect((SafeHWND)_window, out RECT clientRect);
-            InvalidateRect((SafeHWND)_window, clientRect, true);
+            RedrawWindow((SafeHWND)_window, null, HRGN.NULL, 
+                RedrawWindowFlags.RDW_INTERNALPAINT | RedrawWindowFlags.RDW_INVALIDATE);
         }
 
         private class Win32MessageHandler : Win32NativeWindowMessageHandler
