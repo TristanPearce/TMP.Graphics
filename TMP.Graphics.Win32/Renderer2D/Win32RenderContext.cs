@@ -12,15 +12,12 @@ using TMP.Graphics.Win32.Renderer2D;
 
 namespace TMP.Graphics.Win32
 {
-    public class Win32RenderContext : IRenderContext
+    public class Win32RenderContext : IRenderContext, IDisposable
     {
         public event Action<IRenderer2D>? Rendering;
 
         private Win32Window _window;
         private IWin32NativeWindowMessageHandler _windowMessageHandler;
-
-        private HDC _bufferContext;
-        private Gdi32.SafeHBITMAP _bufferBitmap;
 
         public Win32RenderingBackend PreferredBackend { get; set; } = Win32RenderingBackend.GdiPlus;
 
@@ -48,6 +45,11 @@ namespace TMP.Graphics.Win32
         {
             RedrawWindow((SafeHWND)_window, null, HRGN.NULL, 
                 RedrawWindowFlags.RDW_INTERNALPAINT | RedrawWindowFlags.RDW_INVALIDATE);
+        }
+
+        public void Dispose()
+        {
+            
         }
 
         private class Win32MessageHandler : Win32NativeWindowMessageHandler
