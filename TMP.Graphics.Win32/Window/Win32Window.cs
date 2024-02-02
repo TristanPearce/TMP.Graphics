@@ -216,6 +216,13 @@ public sealed class Win32Window : IWindow
         ShowWindow(_windowPointer, ShowWindowCommand.SW_HIDE);
     }
 
+
+
+    public static explicit operator IntPtr(Win32Window window)
+    {
+        return (IntPtr)window._windowPointer.DangerousGetHandle();
+    }
+
     public static explicit operator SafeHWND(Win32Window window)
     {
         return window._windowPointer;
