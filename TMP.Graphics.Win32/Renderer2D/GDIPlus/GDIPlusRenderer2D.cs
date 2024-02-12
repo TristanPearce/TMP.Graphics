@@ -77,8 +77,12 @@ namespace TMP.Graphics.Win32
 
         public void Draw(IEllipse ellipse)
         {
-            if(ellipse is GdiPlusEllipse gdiPlusEllipse) { }
-            Drawing.Rectangle ellipseBounds = new Drawing.Rectangle((int)ellipse.X, (int)ellipse.Y, (int)ellipse.RadiusX, (int)ellipse.RadiusY);
+            Drawing.Rectangle ellipseBounds;
+            if (ellipse is GdiPlusEllipse gdiPlusEllipse)
+                ellipseBounds = gdiPlusEllipse.CalculateBounds();
+            else
+                ellipseBounds = new Drawing.Rectangle((int)ellipse.X, (int)ellipse.Y, (int)ellipse.RadiusX, (int)ellipse.RadiusY);
+
             _graphics.FillEllipse(_brush, ellipseBounds);
             _graphics.DrawEllipse(_pen, ellipseBounds);
         }

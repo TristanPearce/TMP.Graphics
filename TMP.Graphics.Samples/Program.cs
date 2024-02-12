@@ -8,7 +8,7 @@ using TMP.Graphics.Win32.Window;
 Console.WriteLine("Hello, World!");
 
 Win32Window window = new Win32Window();
-window.MessageHandlers.Add(new ConsoleLoggingWin32NativeWindowMessageHandler());
+//window.MessageHandlers.Add(new ConsoleLoggingWin32NativeWindowMessageHandler());
 Win32RenderContext rc = new Win32RenderContext(window) { PreferredBackend = TMP.Graphics.Win32.Renderer2D.Win32RenderingBackend.GdiPlus };
 
 Win32Window window2 = new Win32Window();

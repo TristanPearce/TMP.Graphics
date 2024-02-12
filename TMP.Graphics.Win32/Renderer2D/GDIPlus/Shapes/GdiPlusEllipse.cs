@@ -19,21 +19,21 @@ namespace TMP.Graphics.Win32.Renderer2D.GDIPlus.Shapes
         }
 
         public float Y 
-        { 
-            get; 
-            set; 
+        {
+            get => _bounds.Y;
+            set => _bounds.Y = value;
         }
 
         public float RadiusX 
         { 
-            get; 
-            set; 
+            get => _bounds.Width / 2;
+            set => _bounds.Width = value * 2;
         }
         
         public float RadiusY 
-        { 
-            get; 
-            set; 
+        {
+            get => _bounds.Height / 2;
+            set => _bounds.Height = value * 2;
         }
 
         public System.Drawing.Rectangle CalculateBounds() 
