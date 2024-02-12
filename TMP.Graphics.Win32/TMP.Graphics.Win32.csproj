@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Renderer2D\GDIPlus\NewFolder\**" />
+    <EmbeddedResource Remove="Renderer2D\GDIPlus\NewFolder\**" />
+    <None Remove="Renderer2D\GDIPlus\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Drawing.Common" Version="8.0.1" />
     <PackageReference Include="Vanara.PInvoke.Gdi32" Version="3.4.17" />
     <PackageReference Include="Vanara.PInvoke.User32" Version="3.4.17" />

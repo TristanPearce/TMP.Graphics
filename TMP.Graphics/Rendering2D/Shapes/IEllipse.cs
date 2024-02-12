@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace TMP.Graphics.Rendering2D
 {
-    public interface IRenderContext
+    public interface IEllipse : IShape
     {
-        public event Action<RenderingArguments> Rendering;
+        float X { get; set; }
+        float Y { get; set; }
+        float RadiusX { get; set; }
+        float RadiusY { get; set; }
     }
 }

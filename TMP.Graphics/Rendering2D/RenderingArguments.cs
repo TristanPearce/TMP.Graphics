@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace TMP.Graphics.Rendering2D
 {
-    public interface IRenderContext
+    public class RenderingArguments
     {
-        public event Action<RenderingArguments> Rendering;
+        public IRenderer2D Renderer { get; init; }
+        public IGraphicsFactory GraphicsFactory { get; init; }
     }
 }

@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace TMP.Graphics.Rendering2D
 {
-    public interface IRenderContext
+    public interface IImage : IShape
     {
-        public event Action<RenderingArguments> Rendering;
+
+        int ResolutionX { get; }
+        int ResolutionY { get; }
+
     }
 }

@@ -161,6 +161,8 @@ namespace TMP.Graphics
 
         #endregion
 
+        public static Transform2D Identity => new Transform2D() { _backingMatrix = Matrix3x2.Identity };
+
         public static explicit operator Matrix3x2(Transform2D transform)
         {
             if (transform._shouldRecalculateMatrix)

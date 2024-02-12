@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace TMP.Graphics.Rendering2D
 {
-    public class Polygon : IEnumerable<Vector2>
+    public class Polygon : IPolygon, IEnumerable<Vector2>
     {
         private Transform2D _transform;
 
-        public Vector2 Offset
+        public virtual Vector2 Offset
         {
             get => _transform.Translation;
             set => _transform.Translation = value;
         }
 
-        public float Rotation
+        public virtual float Rotation
         {
             get => _transform.Rotation;
             set => _transform.Rotation = value;
@@ -30,13 +30,15 @@ namespace TMP.Graphics.Rendering2D
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public Vector2 this[int index]
+        public virtual Vector2 this[int index]
         {
             get => _vertices[index];
             set => _vertices[index] = value;
         }
 
-        public Polygon(IEnumerable<Vector2> vertices)
+        public virtual int NumberOfVertices => _vertices.Count;
+
+        public Polygon(params Vector2[] vertices)
         {
             _vertices = new List<Vector2>(vertices);
 
@@ -56,6 +58,11 @@ namespace TMP.Graphics.Rendering2D
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        public void SetVertices(params Vector2[] vertices)
+        {
+            _vertices = new List<Vector2>(vertices);
         }
     }
 }

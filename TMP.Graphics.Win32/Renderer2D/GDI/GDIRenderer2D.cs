@@ -66,35 +66,38 @@ namespace TMP.Graphics.Win32
             _ = SelectObject(_hdc, _hpen);
         }
 
-        public void Draw(Line line)
+        public void Draw(ILine line)
         {
-            MoveToEx(_hdc, (int)line.Start.X, (int)line.Start.Y, out POINT p);  // Move to starting point
-            LineTo(_hdc, (int)line.End.X, (int)line.End.Y);           // Draw a line to ending point
+            MoveToEx(_hdc, (int)line.StartX, (int)line.StartY, out POINT p);  // Move to starting point
+            LineTo(_hdc, (int)line.EndX, (int)line.EndY);           // Draw a line to ending point
         }
 
-        public void Draw(Ellipse ellipse)
+        public void Draw(IEllipse ellipse)
         {
-            Ellipse(_hdc, (int)ellipse.Left, (int)ellipse.Top, (int)ellipse.Right, (int)ellipse.Bottom);
+            //Ellipse(_hdc, (int)ellipse.Left, (int)ellipse.Top, (int)ellipse.Right, (int)ellipse.Bottom);
+            throw new NotImplementedException();
         }
 
-        public void Draw(Rectangle rectangle)
+        public void Draw(IRectangle rectangle)
         {
-            Gdi32.Rectangle(_hdc, (int)rectangle.Left, (int)rectangle.Top, (int)rectangle.Right, (int)rectangle.Bottom);
+            //Gdi32.Rectangle(_hdc, (int)rectangle.Left, (int)rectangle.Top, (int)rectangle.Right, (int)rectangle.Bottom);
+            throw new NotImplementedException();
         }
 
-        public void Draw(Polygon polygon)
+        public void Draw(IPolygon polygon)
         {
-            var points = polygon.Select(x => new POINT((int)x.X, (int)x.Y)).ToArray();
+            //var points = polygon.Select(x => new POINT((int)x.X, (int)x.Y)).ToArray();
+            //Gdi32.Polygon(_hdc, points, points.Length);
 
-            Gdi32.Polygon(_hdc, points, points.Length);
+            throw new NotImplementedException();
         }
 
-        public void Draw(Image image)
+        public void Draw(IImage image)
         {
             throw new NotImplementedException();
         }
 
-        public void Draw(Path path)
+        public void Draw(IPath path)
         {
             throw new NotImplementedException();
         }

@@ -12,12 +12,12 @@ namespace TMP.Graphics.Rendering2D
         Fill Fill { get; set; }
         Outline Outline { get; set; }
 
-        void Draw(Line line);
-        void Draw(Ellipse ellipse);
-        void Draw(Rectangle rectangle);
-        void Draw(Polygon polygon);
-        void Draw(Path path);
-        void Draw(Image image);
+        void Draw(ILine line);
+        void Draw(IEllipse ellipse);
+        void Draw(IRectangle rectangle);
+        void Draw(IPolygon polygon);
+        void Draw(IPath path);
+        void Draw(IImage image);
 
         void Clear(Colour colour);
     }

@@ -9,12 +9,13 @@ using static Vanara.PInvoke.User32;
 using Vanara.PInvoke;
 using System.Runtime.CompilerServices;
 using TMP.Graphics.Win32.Renderer2D;
+using TMP.Graphics.Win32.Renderer2D.GDIPlus;
 
 namespace TMP.Graphics.Win32
 {
     public class Win32RenderContext : IRenderContext, IDisposable
     {
-        public event Action<IRenderer2D>? Rendering;
+        public event Action<RenderingArguments>? Rendering;
 
         private Win32Window _window;
         private IWin32NativeWindowMessageHandler _windowMessageHandler;
@@ -36,6 +37,17 @@ namespace TMP.Graphics.Win32
                     return new GDIRenderer2D(hdc, _window);
                 case Win32RenderingBackend.GdiPlus:
                     return new GDIPlusRenderer2D(hdc);
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        private IGraphicsFactory CreateGraphicsFactory()
+        {
+            switch (PreferredBackend)
+            {
+                case Win32RenderingBackend.GdiPlus:
+                    return new GdiPlusGraphicsFactory();
                 default:
                     throw new NotImplementedException();
             }
@@ -75,7 +87,14 @@ namespace TMP.Graphics.Win32
 
                 // Create a renderer for the off-screen buffer
                 IRenderer2D renderer = _renderContext.CreateRenderer2D(bufferContext);
-                _renderContext.Rendering?.Invoke(renderer);
+                IGraphicsFactory graphicsFactory = _renderContext.CreateGraphicsFactory();
+
+                RenderingArguments args = new RenderingArguments()
+                {
+                    Renderer = renderer,
+                    GraphicsFactory = graphicsFactory
+                };
+                _renderContext.Rendering?.Invoke(args);
 
                 // Copy the off-screen buffer to the screen
                 Gdi32.BitBlt(hdc, 0, 0, clientRect.Width, clientRect.Height, bufferContext, 0, 0, Gdi32.RasterOperationMode.SRCCOPY);

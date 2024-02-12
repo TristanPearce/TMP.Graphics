@@ -9,14 +9,25 @@ Console.WriteLine("Hello, World!");
 
 Win32Window window = new Win32Window();
 window.MessageHandlers.Add(new ConsoleLoggingWin32NativeWindowMessageHandler());
-Win32RenderContext rc = new Win32RenderContext(window);
+Win32RenderContext rc = new Win32RenderContext(window) { PreferredBackend = TMP.Graphics.Win32.Renderer2D.Win32RenderingBackend.GdiPlus };
+
+Win32Window window2 = new Win32Window();
+Win32RenderContext rc2 = new Win32RenderContext(window2) { PreferredBackend = TMP.Graphics.Win32.Renderer2D.Win32RenderingBackend.GdiPlus };
 
 float value = 0;
 
 rc.Rendering += Rendering;
+rc2.Rendering += Rendering;
 
-void Rendering(IRenderer2D renderer)
+void Rendering(RenderingArguments args)
 {
+    IRenderer2D renderer = args.Renderer;
+    IGraphicsFactory factory = args.GraphicsFactory;
+
+    renderer.Fill = new Fill() 
+    { 
+        Colour = new Colour() { Red = 255 } 
+    };
     Outline outline = new Outline()
     {
         Colour = new Colour() { Red = 255, Green = 255, Blue = 0 },
@@ -24,19 +35,21 @@ void Rendering(IRenderer2D renderer)
     };
     renderer.Outline = outline;
 
-    Ellipse ellipse = new Ellipse();
+    IEllipse ellipse = factory.CreateEllipse();
     ellipse.X = 200;
     ellipse.Y = 100;
-    ellipse.Width = 100;
-    ellipse.Height = 200;
+    ellipse.RadiusX = 100;
+    ellipse.RadiusY = 200;
     renderer.Draw(ellipse);
 
-    Line line = new Line();
-    line.Start = new Vector2(100, 100);
-    line.End = new Vector2(200, 200);
+    ILine line = factory.CreateLine();
+    line.StartX = 100;
+    line.StartY = 100;
+    line.EndX = 100;
+    line.EndY = 100;
     renderer.Draw(line);
 
-    Rectangle rectangle = new Rectangle();
+    IRectangle rectangle = factory.CreateRectangle();
     rectangle.X = 0;
     rectangle.Y = 0;
     rectangle.Width = 100;
@@ -49,7 +62,7 @@ void Rendering(IRenderer2D renderer)
         Thickness = 10
     };
     renderer.Fill = new Fill() { Colour = new Colour() { Green = 255 } };
-    Polygon poly = new Polygon(
+    IPolygon poly = new Polygon(
         new Vector2[]
         {
             new Vector2(0, 0),
@@ -61,11 +74,14 @@ void Rendering(IRenderer2D renderer)
 }
 
 window.Show();
+window2.Show();
 
 while (true)
 {
     value = (value + 0.01f);
     rc.Refresh();
+    rc2.Refresh();
     window.PumpEvents();
+    window2.PumpEvents();
     Thread.Sleep(10);
 }

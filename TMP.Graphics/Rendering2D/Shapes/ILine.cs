@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TMP.Graphics.Rendering2D
 {
-    public class Line : ILine
+    public interface ILine : IShape
     {
         public float StartX { get; set; }
         public float StartY { get; set; }

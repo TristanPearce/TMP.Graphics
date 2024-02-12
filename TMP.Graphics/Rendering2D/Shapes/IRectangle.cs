@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace TMP.Graphics.Rendering2D
 {
-    public interface IRenderContext
+    public interface IRectangle : IShape
     {
-        public event Action<RenderingArguments> Rendering;
+        float X { get; set; }
+        float Y { get; set; }
+        float Width { get; set; }
+        float Height { get; set; }
     }
 }

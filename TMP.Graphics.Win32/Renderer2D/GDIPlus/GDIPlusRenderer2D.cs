@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
+using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
 using TMP.Graphics.Rendering2D;
+using TMP.Graphics.Win32.Renderer2D.GDIPlus.Shapes;
 using TMP.Graphics.Win32.Window;
 using Vanara.PInvoke;
 using static Vanara.PInvoke.User32;
@@ -65,40 +68,46 @@ namespace TMP.Graphics.Win32
             _graphics.Clear(CastColour(colour));
         }
 
-        public void Draw(Line line)
+        public void Draw(ILine line)
         {
-            Point point1 = new Point((int)line.Start.X, (int)line.Start.Y);
-            Point point2 = new Point((int)line.End.X, (int)line.End.Y);
+            Point point1 = new Point((int)line.StartX, (int)line.StartY);
+            Point point2 = new Point((int)line.EndX, (int)line.EndY);
             _graphics.DrawLine(_pen, point1, point2);
         }
 
-        public void Draw(Ellipse ellipse)
+        public void Draw(IEllipse ellipse)
         {
-            Drawing.Rectangle ellipseBounds = new Drawing.Rectangle((int)ellipse.X, (int)ellipse.Y, (int)ellipse.Width, (int)ellipse.Height);
+            if(ellipse is GdiPlusEllipse gdiPlusEllipse) { }
+            Drawing.Rectangle ellipseBounds = new Drawing.Rectangle((int)ellipse.X, (int)ellipse.Y, (int)ellipse.RadiusX, (int)ellipse.RadiusY);
             _graphics.FillEllipse(_brush, ellipseBounds);
             _graphics.DrawEllipse(_pen, ellipseBounds);
         }
 
-        public void Draw(TMP.Graphics.Rendering2D.Rectangle rectangle)
+        public void Draw(IRectangle rectangle)
         {
             Drawing.Rectangle rectBounds = new Drawing.Rectangle((int)rectangle.X, (int)rectangle.Y, (int)rectangle.Width, (int)rectangle.Height);
             _graphics.FillRectangle(_brush, rectBounds);
             _graphics.DrawRectangle(_pen, rectBounds);
         }
 
-        public void Draw(Polygon polygon)
+        public void Draw(IPolygon polygon)
         {
-            var points = polygon.Select(p => new PointF(p.X, p.Y)).ToArray();
+            PointF[] points = new PointF[polygon.NumberOfVertices];
+            for (int i = 0; i < points.Length; i++)
+            {
+                Vector2 point = polygon[i];
+                points[i] = new PointF(point.X, point.Y);
+            }
             _graphics.FillPolygon(_brush, points);
             _graphics.DrawPolygon(_pen, points);
         }
 
-        public void Draw(Path path)
+        public void Draw(IPath path)
         {
             throw new NotImplementedException();
         }
 
-        public void Draw(Rendering2D.Image image)
+        public void Draw(IImage image)
         {
             throw new NotImplementedException();
         }

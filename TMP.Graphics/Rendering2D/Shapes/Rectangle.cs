@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TMP.Graphics.Rendering2D
 {
-    public class Rectangle
+    public class Rectangle : IRectangle
     {
         private Transform2D _transform = new Transform2D();
 
@@ -79,6 +79,8 @@ namespace TMP.Graphics.Rendering2D
                 Y = value + Height / 2;
             }
         }
+
+        public Transform2D Transform { get; set; }
 
         public static explicit operator Transform2D(Rectangle rectangle)
         {
